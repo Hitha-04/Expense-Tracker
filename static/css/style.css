@@ -1,0 +1,173 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+.navbar {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 12px 24px;
+    background-color: #1a1a2e !important;
+}
+
+.navbar-brand {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff !important;
+}
+
+.card, .chart-card {
+    border: none;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+.total-card {
+    background: linear-gradient(135deg, #1a1a2e, #534ab7);
+    border-radius: 16px;
+    padding: 24px 32px;
+    color: white;
+}
+
+.total-card p {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.total-card h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.budget-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+.budget-card p {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.progress {
+    height: 10px;
+    border-radius: 10px;
+    background-color: #e9ecef;
+}
+
+.chart-card {
+    padding: 20px;
+}
+
+.chart-card h6 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin-bottom: 16px;
+}
+
+.chart-wrapper-pie {
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.table th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #888;
+    font-weight: 600;
+}
+
+.table td {
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f5f7ff;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.alert {
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+input.form-control,
+select.form-select,
+textarea.form-control {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+
+input.form-control:focus,
+select.form-select:focus,
+textarea.form-control:focus {
+    border-color: #534ab7;
+    box-shadow: 0 0 0 3px rgba(83,74,183,0.15);
+}
+
+.btn {
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.btn-dark {
+    background-color: #1a1a2e;
+    border-color: #1a1a2e;
+}
+
+.btn-dark:hover {
+    background-color: #534ab7;
+    border-color: #534ab7;
+}
+
+.btn-outline-dark {
+    border-color: #1a1a2e;
+    color: #1a1a2e;
+}
+
+.btn-outline-dark:hover {
+    background-color: #1a1a2e;
+    color: #fff;
+}
+
+.section-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin-bottom: 12px;
+}
+
+.form-label {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.amount-highlight {
+    color: #534ab7;
+    font-weight: 600;
+}

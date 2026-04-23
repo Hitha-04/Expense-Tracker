@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="fw-bold mb-4">Edit Expense</h4>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" name="title" class="form-control"
+                               value="{{ expense['title'] }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Amount (₹)</label>
+                        <input type="number" name="amount" class="form-control"
+                               step="0.01" value="{{ expense['amount'] }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select name="category" class="form-select" required>
+                            {% for cat in categories %}
+                                <option value="{{ cat }}"
+                                    {% if cat == expense['category'] %}selected{% endif %}>
+                                    {{ cat }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Date</label>
+                        <input type="date" name="date" class="form-control"
+                               value="{{ expense['date'] }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Note <span class="text-muted">(optional)</span></label>
+                        <textarea name="note" class="form-control" rows="2">{{ expense['note'] or '' }}</textarea>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-dark w-100">Update Expense</button>
+                        <a href="/dashboard" class="btn btn-outline-secondary w-100">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

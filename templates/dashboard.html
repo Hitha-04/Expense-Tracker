@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h5 class="fw-bold mb-0">My Dashboard</h5>
+    <a href="/add" class="btn btn-dark px-4">+ Add Expense</a>
+</div>
+
+<!-- Filter -->
+<form method="GET" action="/dashboard" class="d-flex gap-2 mb-4">
+    <input type="month" name="month" class="form-control" style="max-width:200px;" value="{{ month or '' }}">
+    <button type="submit" class="btn btn-outline-dark">Filter</button>
+    <a href="/dashboard" class="btn btn-outline-secondary">Clear</a>
+</form>
+
+<!-- Top Cards Row -->
+<div class="row g-3 mb-4">
+    <!-- Total Spent -->
+    <div class="col-md-4">
+        <div class="total-card h-100">
+            <p>Total Expenses</p>
+            <h2>₹{{ "%.2f"|format(total) }}</h2>
+        </div>
+    </div>
+
+    <!-- Budget Status -->
+    <div class="col-md-4">
+        <div class="budget-card h-100">
+            <p>Monthly Budget</p>
+            {% if budget %}
+                <h4 class="fw-bold mb-1">₹{{ "%.2f"|format(budget) }}</h4>
+                <div class="progress mb-2">
+                    <div class="progress-bar {% if percent >= 100 %}bg-danger{% elif percent >= 75 %}bg-warning{% else %}bg-success{% endif %}"
+                         style="width: {{ percent }}%"></div>
+                </div>
+                <small class="{% if remaining < 0 %}text-danger{% else %}text-success{% endif %} fw-bold">
+                    {% if remaining >= 0 %}
+                        ₹{{ "%.2f"|format(remaining) }} remaining
+                    {% else %}
+                        ₹{{ "%.2f"|format(-remaining) }} over budget!
+                    {% endif %}
+                </small>
+            {% else %}
+                <p class="text-muted mb-2" style="font-size:0.9rem; text-transform:none; letter-spacing:0;">No budget set for this month.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Set Budget Form -->
+    <div class="col-md-4">
+        <div class="budget-card h-100">
+            <p>Set Budget</p>
+            <form method="POST" action="/set-budget" class="d-flex flex-column gap-2">
+                <input type="month" name="month" class="form-control form-control-sm"
+                       value="{{ current_month }}">
+                <input type="number" name="amount" class="form-control form-control-sm"
+                       placeholder="Enter budget amount (₹)" step="0.01" min="0" required>
+                <button type="submit" class="btn btn-dark btn-sm">Set Budget</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="chart-card h-100">
+            <h6>Spending by Category</h6>
+            <div class="chart-wrapper-pie">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="chart-card h-100">
+            <h6>Monthly Spending (₹)</h6>
+            <canvas id="barChart" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Expense Table -->
+<div class="card p-3">
+    <p class="section-title">Expense History</p>
+    {% if expenses %}
+    <table class="table table-hover mb-0">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Note</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in expenses %}
+            <tr>
+                <td>{{ e['date'] }}</td>
+                <td>{{ e['title'] }}</td>
+                <td><span class="badge bg-secondary">{{ e['category'] }}</span></td>
+                <td class="amount-highlight">₹{{ "%.2f"|format(e['amount']) }}</td>
+                <td class="text-muted">{{ e['note'] or '—' }}</td>
+                <td>
+                    <a href="/edit/{{ e['id'] }}" class="btn btn-sm btn-outline-primary me-1">Edit</a>
+                    <a href="/delete/{{ e['id'] }}" class="btn btn-sm btn-outline-danger"
+                       onclick="return confirm('Delete this expense?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="text-muted text-center py-4">No expenses found. Click <strong>+ Add Expense</strong> to get started!</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script>
+    const month = "{{ month or '' }}";
+    loadCharts(month);
+</script>
+{% endblock %}
